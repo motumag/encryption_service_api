@@ -24,7 +24,7 @@ import java.util.Base64;
 /**
  * Author: Motuma Gishu, Senior Software Engineer
  * Date: 12/16/24
- * Description: EncryptionUtil
+ * Description: EncryptionUtil with constants for key file paths
  */
 public class EncryptionUtil {
 
@@ -34,14 +34,18 @@ public class EncryptionUtil {
     private static final int GCM_IV_LENGTH = 12;
     private static final int GCM_TAG_LENGTH = 16;
 
+    // File paths to RSA keys (constants)
+    private static final String PUBLIC_KEY_PATH = "/Users/motumagishu/Desktop/PROJECTS/personal/encryption_service/certs/public_cert.pem";
+    private static final String PRIVATE_KEY_PATH = "/Users/motumagishu/Desktop/PROJECTS/personal/encryption_service/certs/private_key.pem";
+
     private final PublicKey publicKey;
     private final PrivateKey privateKey;
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public EncryptionUtil(String publicKeyPath, String privateKeyPath) {
+    public EncryptionUtil() {
         try {
-            this.publicKey = loadPublicKey(publicKeyPath);
-            this.privateKey = loadPrivateKey(privateKeyPath);
+            this.publicKey = loadPublicKey(PUBLIC_KEY_PATH);
+            this.privateKey = loadPrivateKey(PRIVATE_KEY_PATH);
         } catch (Exception e) {
             throw new CustomException("Error loading RSA keys", e);
         }
